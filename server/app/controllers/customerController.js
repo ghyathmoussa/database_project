@@ -56,7 +56,7 @@ exports.findOne = async (req, res) => {
 // update item by id
 exports.update = async (req, res) => {
     try {
-        const cid = req.params
+        const cid = req.body.id
         console.log(cid.cid)
         const content = req.body
         const sql_query = `UPDATE customer SET cname = $1, clname = $2 WHERE cid = '${cid.cid}'`

@@ -52,7 +52,7 @@ exports.findOne = async (req, res) => {
 // update item by id
 exports.update = async (req, res) => {
     try {
-        const id = req.params.id
+        const id = req.body.id
         console.log(id)
         const content = req.body
         const sql_query = `UPDATE station SET name = $1, surname = $2, plate = $3 WHERE id = ${id}`

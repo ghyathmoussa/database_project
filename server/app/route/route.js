@@ -19,7 +19,7 @@ router.get('/api/taxi/taxi-driver-info',TaxiC.allDriversData)
 router.post('/api/customer/create',customerC.create)
 router.get('/api/customer/findAll',customerC.findAll)
 router.get('/api/customer/findOne/:cid',customerC.findOne)
-router.put('/api/customer/update/:cid',customerC.update)
+router.put('/api/customer/update',customerC.update)
 router.delete('/api/customer/delete/:cid',customerC.delete)
 
 /* ********** routes of staions ********* */
@@ -33,7 +33,7 @@ router.delete('/api/station/delete/:snumber',stationC.delete)
 router.post('/api/taxi-driver/create',taxiDriverC.create)
 router.get('/api/taxi-driver/findAll',taxiDriverC.findAll)
 router.get('/api/taxi-driver/findOne/:id',taxiDriverC.findOne)
-router.put('/api/taxi-driver/update/:id',taxiDriverC.update)
+router.put('/api/taxi-driver/update',taxiDriverC.update)
 router.delete('/api/taxi-driver/delete/:id',taxiDriverC.delete)
 
 /* ***********routs for models ********** */
