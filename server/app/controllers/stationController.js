@@ -52,10 +52,10 @@ exports.findOne = async (req, res) => {
 // update item by id
 exports.update = async (req, res) => {
     try {
-        const snumber = req.params
-        console.log(snumber.snumber)
+        const snumber = req.body.snumber
+        console.log(snumber)
         const content = req.body
-        const sql_query = `UPDATE station SET city = $1, sname = $2 WHERE snumber = '${snumber.snumber}'`
+        const sql_query = `UPDATE station SET city = $1, sname = $2 WHERE snumber = '${snumber}'`
         const updatedStation = await pool.query(sql_query, [content.city, content.sname])
         res.status(200).json(updatedStation);
     } catch (err) {
