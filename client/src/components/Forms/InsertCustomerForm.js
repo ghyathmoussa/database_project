@@ -1,34 +1,52 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Form, Row, Button, Col} from "react-bootstrap";
+import { Form, Row, Button, Col } from "react-bootstrap";
+import axios from 'axios'
 
-const InsertCustomerForm = (props) =>  {
+const InsertCustomerForm = (props) => {
+  const [data, setData] = useState({
+    cname: '',
+    clname: '',
+  })
+  function fetchData() {
+    const port = 'http://localhost:4000/api/customer/create'
+
+    axios.post(port, data).then(res => {
+      console.log(res.data)
+
+    })
+      .catch(err => console.log(err.message))
+  }
   return (
-    
-    <Form>
+    <Form
+      onSubmit={(e) => {
+        e.preventDefault()
+        console.log('submitted')
+        fetchData()
+      }}
+    >
+      <Row className="mb-3">
+        <Form.Group as={Col}>
+          <Form.Label>First Name</Form.Label>
+          <Form.Control placeholder="First Name" name='cname' value={data.cname} onChange={(e) => setData({ ...data, cname: e.target.value })} />
+        </Form.Group>
 
-        <Row className="mb-3">
-          <Form.Group as={Col}>
-            <Form.Label>First Name</Form.Label>
-            <Form.Control placeholder="First Name" />
-          </Form.Group>
+        <Form.Group as={Col}>
+          <Form.Label>Last Name</Form.Label>
+          <Form.Control placeholder="Last Name" name='lname' value={data.clname} onChange={(e) => setData({ ...data, clname: e.target.value })} />
+        </Form.Group>
+      </Row>
 
-          <Form.Group as={Col}>
-            <Form.Label>Last Name</Form.Label>
-            <Form.Control placeholder="Last Name"/>
-          </Form.Group>
-        </Row>
-
-        {/* <Row className="mb-3">
+      {/* <Row className="mb-3">
           <Form.Group as={Col}>
             <Form.Label>ID</Form.Label>
             <Form.Control placeholder="ID"/>
           </Form.Group>
         </Row> */}
 
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
     </Form>
   );
 }

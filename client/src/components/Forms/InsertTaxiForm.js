@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Row, Button, Col } from "react-bootstrap";
-import http from '../../httpRequest'
 import axios from 'axios'
 
 const InsertTaxiForm = (props) => {
@@ -15,7 +14,7 @@ const InsertTaxiForm = (props) => {
   function fetchData() {
     const port = 'http://localhost:4000/api/taxi/create'
 
-    axios.post(port,data).then(res =>{
+    axios.post(port, data).then(res => {
       console.log(res.data)
 
     })
