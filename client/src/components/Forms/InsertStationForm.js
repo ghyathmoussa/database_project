@@ -10,7 +10,7 @@ const InsertStationForm = (props) => {
     snumber: 0
   })
   function fetchData() {
-    const port = 'http://localhost:4000/api/taxi/create'
+    const port = 'http://localhost:4000/api/station/create'
 
     axios.post(port, data).then(res => {
       console.log(res.data)
