@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Row, Button, Col } from "react-bootstrap";
+import { Form, Row, Button, Col, Alert } from "react-bootstrap";
 import axios from 'axios'
 
 const InsertStationForm = (props) => {
@@ -9,6 +9,7 @@ const InsertStationForm = (props) => {
     city: '',
     snumber: 0
   })
+  const [alert,setAlert] = useState(false)
   function fetchData() {
     const port = 'http://localhost:4000/api/station/create'
 
@@ -18,13 +19,19 @@ const InsertStationForm = (props) => {
     })
       .catch(err => console.log(err.message))
   }
+  const checkForm = () => {
+    if(data.snumber < 0)
+      setAlert(true)
+    else
+      fetchData()
+  }
   return (
 
     <Form
       onSubmit={(e) => {
         e.preventDefault()
         console.log('submitted')
-        fetchData()
+        checkForm()
       }}
     >
       <Row className="mb-3">
@@ -41,7 +48,10 @@ const InsertStationForm = (props) => {
       <Row className="mb-3">
         <Form.Group as={Col}>
           <Form.Label>Staion Number</Form.Label>
-          <Form.Control placeholder="Staion Number" name='snumber' value={data.snumber} onChange={(e) => setData({...data,snumber:parseInt(e.target.value)})} />
+          <Form.Control placeholder="Staion Number" name='snumber' onChange={(e) => setData({...data,snumber:parseInt(e.target.value)})} />
+          {alert && <Alert key={data.id} variant='danger'>
+            please enter positive number
+          </Alert>}
         </Form.Group>
       </Row>
       <Button variant="primary" type="submit">

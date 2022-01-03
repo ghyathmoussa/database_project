@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Row, Button, Col } from "react-bootstrap";
+import { Form, Row, Button, Col, Alert } from "react-bootstrap";
 import axios from 'axios'
 
 const UpdateCustomerForm = (props) => {
@@ -9,15 +9,21 @@ const UpdateCustomerForm = (props) => {
     clname: '',
     id: 0
   })
+  const [alert, setAlert] = useState(false)
+
   function fetchData() {
     const port = 'http://localhost:4000/api/customer/update'
 
-    axios.post(port, data).then(res => {
-      console.log(res.data)
-
+    axios.put(port, data).then(res => {
+      console.log(res.data.rows)
+      if (res.data.rows.length == 0)
+        setAlert(true)
+      else
+        setAlert(false)
     })
       .catch(err => console.log(err.message))
   }
+
   return (
 
     <Form
@@ -30,7 +36,10 @@ const UpdateCustomerForm = (props) => {
       <Row className="mb-3">
         <Form.Group as={Col}>
           <Form.Label>Enter the Customer ID of the Customer You Want to Update</Form.Label>
-          <Form.Control placeholder="ID" name='id' value={data.id} onChange={(e) => setData({ ...data, id: parseInt(e.target.value) })} />
+          <Form.Control placeholder="ID" name='id' onChange={(e) => setData({ ...data, id: parseInt(e.target.value) })} />
+          {alert && <Alert key={data.id} variant='danger'>
+            please enter a correct ID
+          </Alert>}
         </Form.Group>
       </Row>
 
@@ -48,13 +57,13 @@ const UpdateCustomerForm = (props) => {
           <Form.Control placeholder="Last Name" name='cname' value={data.cname} onChange={(e) => setData({ ...data, cname: e.target.value })} />
         </Form.Group>
       </Row>
-
-      <Row className="mb-3">
+      {/* no need to change the ID of customer */}
+      {/* <Row className="mb-3">
         <Form.Group as={Col}>
           <Form.Label>ID</Form.Label>
           <Form.Control placeholder="ID" name='clname' value={data.clname} onChange={(e) => setData({ ...data, clname: e.target.value })} />
         </Form.Group>
-      </Row>
+      </Row> */}
 
       <Button variant="primary" type="submit">
         Submit

@@ -60,8 +60,6 @@ const Main = () => {
       {operation== "Delete" && form == "Driver" &&  <DeleteDriverForm/>}
       {operation== "Delete" && form == "Station" &&  <DeleteStationForm/>}
       {operation== "Delete" && form == "Customer" &&  <DeleteCustomerForm/>}
-
-      
       
 
       

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Row, Button, Col } from "react-bootstrap";
+import { Form, Row, Button, Col,Alert } from "react-bootstrap";
 import axios from 'axios'
 
 const UpdateStationForm = (props) => {
@@ -9,11 +9,14 @@ const UpdateStationForm = (props) => {
     sname: '',
     city: '',
   })
+  const [alert, setAlert] = useState(false)
   function fetchData() {
     const port = 'http://localhost:4000/api/station/update'
 
-    axios.post(port,data).then(res =>{
-      console.log(res.data)
+    axios.put(port, data).then(res => {
+      console.log(res.data.rows)
+      if (res.data.rows.length == 0)
+        setAlert(true)
 
     })
       .catch(err => console.log(err.message))
@@ -30,7 +33,10 @@ const UpdateStationForm = (props) => {
       <Row className="mb-3">
         <Form.Group as={Col}>
           <Form.Label>Enter the Station Number of the Station You Want to Update</Form.Label>
-          <Form.Control placeholder="Station Number" name='snumber' value={data.snumber} onChange={(e) => setData({...data,snumber:parseInt(e.target.value)})} />
+          <Form.Control placeholder="Station Number" name='snumber' onChange={(e) => setData({ ...data, snumber: parseInt(e.target.value) })} />
+          {alert && <Alert key={data.id} variant='danger'>
+            please enter a correct ID
+          </Alert>}
         </Form.Group>
       </Row>
 
@@ -39,12 +45,12 @@ const UpdateStationForm = (props) => {
       <Row className="mb-3">
         <Form.Group as={Col}>
           <Form.Label>Staion Name</Form.Label>
-          <Form.Control placeholder="Staion Name" name='sname' value={data.sname} onChange={(e) => setData({...data,sname:e.target.value})} />
+          <Form.Control placeholder="Staion Name" name='sname' value={data.sname} onChange={(e) => setData({ ...data, sname: e.target.value })} />
         </Form.Group>
 
         <Form.Group as={Col}>
           <Form.Label>City</Form.Label>
-          <Form.Control placeholder="City" name='city' value={data.city} onChange={(e) => setData({...data,city:e.target.value})} />
+          <Form.Control placeholder="City" name='city' value={data.city} onChange={(e) => setData({ ...data, city: e.target.value })} />
         </Form.Group>
       </Row>
       {/* 

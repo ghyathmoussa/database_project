@@ -1,7 +1,7 @@
 
 import React,{useState} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Row, Button, Col } from "react-bootstrap";
+import { Form, Row, Button, Col,Alert } from "react-bootstrap";
 import axios from 'axios'
 
 const UpdateTaxiForm = (props) => {
@@ -10,12 +10,16 @@ const UpdateTaxiForm = (props) => {
     model: '',
     snumber: 0
   })
+  const [alert,setAlert] = useState(false)
   function fetchData() {
     const port = 'http://localhost:4000/api/taxi/update'
-
-    axios.post(port,data).then(res =>{
-      console.log(res.data)
-
+    console.log(data)
+    axios.put(port,data).then(res =>{
+      console.log(res.data.rows)
+      if(res.data.rows.length == 0)
+        setAlert(true)
+      else
+        setAlert(false)
     })
       .catch(err => console.log(err.message))
   }
@@ -32,6 +36,9 @@ const UpdateTaxiForm = (props) => {
         <Form.Group as={Col}>
           <Form.Label>Enter the Plate Number of the Taxi You Want to Update</Form.Label>
           <Form.Control placeholder="Plate Number" name='plate' value={data.plate} onChange={(e) => setData({...data,plate:e.target.value})} />
+          {alert && <Alert key={data.id} variant='danger'>
+            please enter a correct plate
+          </Alert>}
         </Form.Group>
       </Row>
 
@@ -48,7 +55,7 @@ const UpdateTaxiForm = (props) => {
 
         <Form.Group as={Col}>
           <Form.Label>Car Model</Form.Label>
-          <Form.Control placeholder="Car Model" name='model' value={data.model} onChange={(e) => setData({...data,model:e.target.model})} />
+          <Form.Control placeholder="Car Model" name='model' value={data.model} onChange={(e) => setData({...data,model:e.target.value})} />
         </Form.Group>
       </Row>
       <Row className="mb-3">
