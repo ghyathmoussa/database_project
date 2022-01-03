@@ -67,12 +67,13 @@ exports.update = async (req, res) => {
 // delete item by id
 exports.delete = async (req, res) => {
     try {
-        const snumber = req.params.snumber
-        const sql_query = `DELETE FROM station WHERE snumber = '${snumber}'`
+        const snumber = req.body.snumber
+        console.log(req.body)
+        const sql_query = `DELETE FROM station WHERE snumber = ${snumber}`
         const deletedStation = await pool.query(sql_query);
         console.log(deletedStation)
         res.status(200).json(deletedStation)
-    } catch (error) {
+    } catch (err) {
         console.log(err.message)
         res.status(500).json({ message: 'bad request' })
     }

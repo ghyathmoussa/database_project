@@ -9,7 +9,7 @@ exports.create = async (req, res) => {
         console.log(req.body)
         const taxiDriver = req.body
         const newTaxiDriver = await pool.query(
-            "INSERT INTO taxi_drivers(id,name,surnamem,plate) VALUES($1, $2, $3, $4) RETURNING *",
+            "INSERT INTO taxi_drivers(id,name,surname,plate) VALUES($1, $2, $3, $4) RETURNING *",
             [taxiDriver.id,taxiDriver.name, taxiDriver.surname, taxiDriver.plate]
         )
         res.status(200).json(newTaxiDriver);
@@ -55,7 +55,7 @@ exports.update = async (req, res) => {
         const id = req.body.id
         console.log(id)
         const content = req.body
-        const sql_query = `UPDATE station SET name = $1, surname = $2, plate = $3 WHERE id = ${id}`
+        const sql_query = `UPDATE taxi_drivers SET name = $1, surname = $2, plate = $3 WHERE id = ${id}`
         const updatedTaxiDriver = await pool.query(sql_query, [content.name,content.surname,content.plate])
         res.status(200).json(updatedTaxiDriver);
     } catch (err) {
@@ -67,7 +67,7 @@ exports.update = async (req, res) => {
 // delete item by id
 exports.delete = async (req, res) => {
     try {
-        const id = req.params.id
+        const id = req.body.id
         const sql_query = `DELETE FROM taxi_drivers WHERE id = ${id}`
         const deletedTaxiDriver = await pool.query(sql_query);
         console.log(deletedTaxiDriver)

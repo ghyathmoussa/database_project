@@ -44,7 +44,7 @@ exports.create = async (req, res) => {
 
     } catch (err) {
         console.error(err.message)
-        res.status(500).json({ message: "unvalied creation" })
+        res.status(500).json({ message: err.message })
     }
 }
 
@@ -109,10 +109,9 @@ exports.findWithOutPlate = async (req,res) => {
 // update item by id
 exports.update = async (req, res) => {
     try {
-        const plate = req.params
-        console.log(plate.plate)
+        const plate = req.body.plate
         const content = req.body
-        const sql_query = `UPDATE taxi SET model = $1, snumber = $2 WHERE plate = '${plate.plate}'`
+        const sql_query = `UPDATE taxi SET model = $1, snumber = $2 WHERE plate = '${plate}'`
         const updatedTaxi = await pool.query(sql_query, [content.model, content.snumber])
         res.status(200).json(updatedTaxi);
     } catch (err) {
@@ -124,12 +123,12 @@ exports.update = async (req, res) => {
 // delete item by id
 exports.delete = async (req, res) => {
     try {
-        const plate = req.params.plate
+        const plate = req.body.plate
         const sql_query = `DELETE FROM taxi WHERE plate = '${plate}'`
         const deletedTaxi = await pool.query(sql_query);
         console.log(deletedTaxi)
         res.status(200).json(deletedTaxi)        
-    } catch (error) {
+    } catch (err) {
         console.log(err.message)
         res.status(500).json({ message: 'bad request' })
     }

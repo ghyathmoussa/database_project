@@ -57,10 +57,11 @@ exports.findOne = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const cid = req.body.id
-        console.log(cid.cid)
+        console.log(cid)
         const content = req.body
-        const sql_query = `UPDATE customer SET cname = $1, clname = $2 WHERE cid = '${cid.cid}'`
+        const sql_query = `UPDATE customer SET cname = $1, clname = $2 WHERE cid = '${cid}'`
         const updatedCustomer = await pool.query(sql_query, [content.cname, content.clname])
+        console.log(updatedCustomer)
         res.status(200).json(updatedCustomer);
     } catch (err) {
         console.log(err.message)
@@ -71,12 +72,13 @@ exports.update = async (req, res) => {
 // delete item by id
 exports.delete = async (req, res) => {
     try {
-        const cid = req.params.cid
-        const sql_query = `DELETE FROM customer WHERE cid = '${cid}'`
+        const cid = req.body.cid
+        console.log(req.body)
+        const sql_query = `DELETE FROM customer WHERE cid = ${cid}`
         const deletedCustomer = await pool.query(sql_query);
         console.log(deletedCustomer)
         res.status(200).json(deletedCustomer)        
-    } catch (error) {
+    } catch (err) {
         console.log(err.message)
         res.status(500).json({ message: 'bad request' })
     }
