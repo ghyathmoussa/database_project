@@ -18,7 +18,7 @@ router.get('/api/taxi/taxi-driver-info',TaxiC.allDriversData)
 /* *********** routes of customer ************** */
 router.post('/api/customer/create',customerC.create)
 router.get('/api/customer/findAll',customerC.findAll)
-router.get('/api/customer/findOne/:cid',customerC.findOne)
+router.post('/api/customer/findOne',customerC.findOne)
 router.put('/api/customer/update',customerC.update)
 router.delete('/api/customer/delete',customerC.delete)
 

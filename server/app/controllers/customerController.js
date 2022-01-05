@@ -42,9 +42,9 @@ exports.findAll = async (req, res) => {
 /* ********* sith pg and pool ********** */
 exports.findOne = async (req, res) => {
     try {
-        console.log(req.params.plate)
-        const cid = req.params;
-        const sql_query = `SELECT * FROM customer WHERE cid = '${cid.cid}'`;
+        console.log(req.body)
+        const cid = req.body.cid;
+        const sql_query = `SELECT * FROM customer WHERE cid = '${cid}'`;
         const customer = await pool.query(sql_query)
         res.status(200).json(customer)
     } catch (err) {
