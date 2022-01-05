@@ -1,6 +1,19 @@
 import React, {useState} from "react";
 import { NavigationBar, VariantButtonGroup} from "./components";
-import { InsertDriverForm, InsertTaxiForm, InsertStationForm, InsertCustomerForm, UpdateTaxiForm, UpdateDriverForm, UpdateStationForm, UpdateCustomerForm, DeleteTaxiForm, DeleteDriverForm, DeleteStationForm, DeleteCustomerForm} from "./components/Forms";
+import { 
+InsertDriverForm, 
+InsertTaxiForm,
+InsertStationForm,
+InsertCustomerForm,
+UpdateTaxiForm,
+UpdateDriverForm,
+UpdateStationForm,
+UpdateCustomerForm,
+DeleteTaxiForm,
+DeleteDriverForm,
+DeleteStationForm, 
+DeleteCustomerForm,
+ShowTaxis} from "./components/Forms";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Form, Row, Button, Col} from "react-bootstrap";
@@ -14,14 +27,11 @@ const Main = () => {
   const [form, setForm] = useState();
   function selectOperation(e) { 
     setOperation(e.target.name)
-  } 
+  }
+
 
   function selectForm(e){
     setForm(e.target.name)
-    httpRequest.get('http://localhost:4000/')
-      .then(res => {
-        console.log(res.data)
-      })
   }
 
   return (
@@ -61,7 +71,7 @@ const Main = () => {
       {operation== "Delete" && form == "Station" &&  <DeleteStationForm/>}
       {operation== "Delete" && form == "Customer" &&  <DeleteCustomerForm/>}
       
-
+      {operation == 'Show Data' && form == 'Taxi' && <ShowTaxis />}
       
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Row, Button, Col, Alert } from "react-bootstrap";
+import { Form, Row, Button, Col } from "react-bootstrap";
 import axios from 'axios'
 
 const InsertCustomerForm = (props) => {
