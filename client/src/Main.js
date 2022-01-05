@@ -15,7 +15,8 @@ DeleteStationForm,
 DeleteCustomerForm,
 ShowTaxis,
 ShowTaxiDrivers,
-ShowStations} from "./components/Forms";
+ShowStations,
+ShowCustomer} from "./components/Forms";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Form, Row, Button, Col} from "react-bootstrap";
@@ -76,6 +77,7 @@ const Main = () => {
       {operation == 'Show Data' && form == 'Taxi' && <ShowTaxis />}
       {operation == 'Show Data' && form == 'Driver' && <ShowTaxiDrivers />}
       {operation == 'Show Data' && form == 'Station' && <ShowStations />}
+      {operation == 'Show Data' && form == 'Customer' && <ShowCustomer />}
       
       </div>
     </div>

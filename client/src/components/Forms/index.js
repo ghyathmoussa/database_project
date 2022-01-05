@@ -13,4 +13,5 @@ export * from "./DeleteCustomerForm"
 export * from './ShowTaxis'
 export * from './ShowTaxiDrivers'
 export * from './ShowStations'
+export * from './ShowCustomer'
 // export * from './AllTaxis'
