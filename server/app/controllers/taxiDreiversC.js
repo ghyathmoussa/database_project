@@ -38,8 +38,8 @@ exports.findAll = async (req, res) => {
 /* ********* sith pg and pool ********** */
 exports.findOne = async (req, res) => {
     try {
-        console.log(req.params.plate)
-        const id = req.params.id;
+        console.log(req.body.id)
+        const id = req.body.id;
         const sql_query = `SELECT * FROM taxi_drivers WHERE id = ${id}`;
         const taxiDriver = await pool.query(sql_query)
         res.status(200).json(taxiDriver)

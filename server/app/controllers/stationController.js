@@ -38,9 +38,9 @@ exports.findAll = async (req, res) => {
 /* ********* sith pg and pool ********** */
 exports.findOne = async (req, res) => {
     try {
-        console.log(req.params.plate)
-        const snumber = req.params;
-        const sql_query = `SELECT * FROM station WHERE cid = '${snumber.snumber}'`;
+        console.log(req.body.snumber)
+        const snumber = req.body;
+        const sql_query = `SELECT * FROM station WHERE snumber = ${snumber.snumber}`;
         const station = await pool.query(sql_query)
         res.status(200).json(station)
     } catch (err) {
@@ -55,7 +55,7 @@ exports.update = async (req, res) => {
         const snumber = req.body.snumber
         console.log(snumber)
         const content = req.body
-        const sql_query = `UPDATE station SET city = $1, sname = $2 WHERE snumber = '${snumber}'`
+        const sql_query = `UPDATE station SET city = $1, sname = $2 WHERE snumber = ${snumber}`
         const updatedStation = await pool.query(sql_query, [content.city, content.sname])
         res.status(200).json(updatedStation);
     } catch (err) {
@@ -80,11 +80,11 @@ exports.delete = async (req, res) => {
 }
 
 exports.showModels = async (req, res) => {
-    //console.log(req.body.sname)
+    console.log(req.body.sname)
     const sql_query = `select model from taxi_model where sname = '${req.body.sname}'`
     const models = await pool.query(sql_query)
     console.log(models)
-    res.status(200).json(models.rows)
+    res.status(200).json(models)
 }
 
 exports.countDrivers = async (req, res) => {
@@ -96,7 +96,7 @@ exports.countDrivers = async (req, res) => {
         const drivers = await pool.query(sql_query)
 
         console.log(drivers)
-        res.status(200).json(drivers.rows)
+        res.status(200).json(drivers)
     } catch (err) {
         console.log(err.message)
         res.status(500).json({ message: 'unvalied query' })
@@ -104,7 +104,7 @@ exports.countDrivers = async (req, res) => {
 }
 
 exports.countDriversOneStation = async (req, res) => {
-    const station = req.params.snumber
+    const station = req.body.snumber
     try {
         const sql_query = `
             SELECT station_drivers(${station})
@@ -112,7 +112,7 @@ exports.countDriversOneStation = async (req, res) => {
         const driversCount = await pool.query(sql_query)
 
         console.log(driversCount)
-        res.status(200).json(driversCount.rows)
+        res.status(200).json(driversCount)
     } catch (err) {
         console.log(err.message)
         res.status(500).json({ message: 'unvalied query' })

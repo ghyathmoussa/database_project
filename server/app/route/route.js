@@ -9,10 +9,10 @@ const taxiDriverC = require('../controllers/taxiDreiversC')
 /* ******** routes of taxi ************* */
 router.post('/api/taxi/create',TaxiC.create)
 router.get('/api/taxi/findAll',TaxiC.findAll)
-router.get('/api/taxi/findOne/:plate',TaxiC.findOne)
+router.post('/api/taxi/findOne',TaxiC.findOne)
 router.put('/api/taxi/update',TaxiC.update)
 router.delete('/api/taxi/delete',TaxiC.delete)
-router.get('/api/taxi/finWithOutPlate/:plate',TaxiC.findWithOutPlate)
+router.post('/api/taxi/finWithOutPlate',TaxiC.findWithOutPlate)
 router.get('/api/taxi/taxi-driver-info',TaxiC.allDriversData)
 
 /* *********** routes of customer ************** */
@@ -25,20 +25,20 @@ router.delete('/api/customer/delete',customerC.delete)
 /* ********** routes of staions ********* */
 router.post('/api/station/create',stationC.create)
 router.get('/api/station/findAll',stationC.findAll)
-router.get('/api/station/findOne/:snumber',stationC.findOne)
+router.post('/api/station/findOne',stationC.findOne)
 router.put('/api/station/update',stationC.update)
 router.delete('/api/station/delete',stationC.delete)
 
 /* ********* routes of taxi drivers ********* */
 router.post('/api/taxi-driver/create',taxiDriverC.create)
 router.get('/api/taxi-driver/findAll',taxiDriverC.findAll)
-router.get('/api/taxi-driver/findOne/:id',taxiDriverC.findOne)
+router.post('/api/taxi-driver/findOne',taxiDriverC.findOne)
 router.put('/api/taxi-driver/update',taxiDriverC.update)
 router.delete('/api/taxi-driver/delete',taxiDriverC.delete)
 
 /* ***********routs for models ********** */
-router.get('/api/model/show',stationC.showModels)
+router.post('/api/model/show',stationC.showModels)
 router.get('/api/model/showDrivers',stationC.countDrivers)
-router.get('/api/model/showDriversOneStation/:snumber',stationC.countDriversOneStation)
+router.post('/api/model/showDriversOneStation',stationC.countDriversOneStation)
 
 module.exports = router;

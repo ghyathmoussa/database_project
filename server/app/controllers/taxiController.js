@@ -79,9 +79,9 @@ exports.findAll = async (req, res) => {
 /* ********* sith pg and pool ********** */
 exports.findOne = async (req, res) => {
     try {
-        console.log(req.params.plate)
-        const plate = req.params;
-        const sql_query = `SELECT * FROM taxi EXCEPT SELECT * FROM taxi WHERE plate NOT IN (SELECT plate FROM taxi WHERE plate = '${plate.plate}')`;
+        console.log(req.body)
+        const plate = req.body.plate;
+        const sql_query = `SELECT * FROM taxi EXCEPT SELECT * FROM taxi WHERE plate NOT IN (SELECT plate FROM taxi WHERE plate = '${plate}')`;
         const taxi = await pool.query(sql_query)
         res.status(200).json(taxi)
     } catch (err) {
@@ -90,17 +90,17 @@ exports.findOne = async (req, res) => {
     }
 }
 
-exports.findWithOutPlate = async (req,res) => {
-    try{
-        console.log(req.params.plate)
-        const plate = req.params;
+exports.findWithOutPlate = async (req, res) => {
+    try {
+        console.log(req.body.snumber)
+        const snumber = req.body.snumber;
         const sql_query = `
-            select station_drivers('${plate}')
+            select station_drivers(${snumber})
         `;
         const taxi = await pool.query(sql_query)
         console.log(taxi.rows[0].toplam_taxi)
         res.status(200).json(taxi)
-    }catch(err){
+    } catch (err) {
         console.log(err.message)
         res.status(500).json({ message: 'bad request' })
     }
@@ -127,7 +127,7 @@ exports.delete = async (req, res) => {
         const sql_query = `DELETE FROM taxi WHERE plate = '${plate}'`
         const deletedTaxi = await pool.query(sql_query);
         console.log(deletedTaxi)
-        res.status(200).json(deletedTaxi)        
+        res.status(200).json(deletedTaxi)
     } catch (err) {
         console.log(err.message)
         res.status(500).json({ message: 'bad request' })
@@ -135,7 +135,7 @@ exports.delete = async (req, res) => {
 }
 
 
-exports.allDriversData = async (req,res) => {
+exports.allDriversData = async (req, res) => {
     try {
         const sql_query = `
             SELECT taksici_bilgi()
@@ -143,7 +143,7 @@ exports.allDriversData = async (req,res) => {
         const taxiDriverInfo = await pool.query(sql_query)
 
         console.log(taxiDriverInfo)
-        res.status(200).json(taxiDriverInfo.rows)
+        res.status(200).json(taxiDriverInfo)
     } catch (err) {
         console.log(err.message)
         res.status(500).json({ message: 'unvalied query' })
