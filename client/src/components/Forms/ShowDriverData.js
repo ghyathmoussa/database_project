@@ -15,9 +15,26 @@ const ShowDriverData = (props) => {
     return (
         <div>
             <Container>
+                <Row>
+                    <Col>
+                        Driver Name
+                    </Col>
+                    <Col>
+                        Driver Surname
+                    </Col>
+                    <Col>
+                        City
+                    </Col>
+                    <Col>
+                        Durak
+                    </Col>
+                </Row>
                 {data.map(taxi => (
                     <Row>
-                        {taxi.taksici_bilgi}
+                        <Col>{taxi.taksici_bilgi.replace(/[{()}]/g,'').split(',')[0]}</Col>
+                        <Col>{taxi.taksici_bilgi.replace(/[{()}]/g,'').split(',')[1]}</Col>
+                        <Col>{taxi.taksici_bilgi.replace(/[{()}]/g,'').split(',')[2]}</Col>
+                        <Col>{taxi.taksici_bilgi.replace(/[{()}]/g,'').split(',')[3]}</Col>
                     </Row>
                 ))}
             </Container>

@@ -52,7 +52,7 @@ const ShowTaxiModel = (props) => {
                 {taxis.map(taxi => (
                     <Row className='row'>
                         <Col>
-                            {taxi.taxi_model}
+                            {taxi.taxi_model.replace(/[{()}]/g,'').split(',')[0]}
                         </Col>
                     </Row>
                 ))}
