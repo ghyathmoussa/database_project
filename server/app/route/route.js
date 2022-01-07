@@ -14,6 +14,7 @@ router.put('/api/taxi/update',TaxiC.update)
 router.delete('/api/taxi/delete',TaxiC.delete)
 router.post('/api/taxi/finWithOutPlate',TaxiC.findWithOutPlate)
 router.get('/api/taxi/taxi-driver-info',TaxiC.allDriversData)
+router.post('/api/taxi/find-model',TaxiC.taxiModel)
 
 /* *********** routes of customer ************** */
 router.post('/api/customer/create',customerC.create)

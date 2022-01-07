@@ -151,3 +151,17 @@ exports.allDriversData = async (req, res) => {
     }
 }
 
+//find the taxi model
+exports.taxiModel = async (req,res) => {
+    try {
+        const plate = req.body.plate;
+        console.log(req.body)
+        const sql_query = `select taxi_model('${plate}')`
+        const taxi_model = await pool.query(sql_query);
+        console.log(taxi_model)
+        res.status(200).json(taxi_model); 
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({message:'bad request'})
+    }
+} 
