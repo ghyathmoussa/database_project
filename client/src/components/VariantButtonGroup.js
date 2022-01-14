@@ -20,6 +20,7 @@ const VariantButtonGroup = (props) =>  {
         <Button onClick={props.onClick} name={props.button2}>{props.button2}</Button>
         <Button onClick={props.onClick} name={props.button3}>{props.button3}</Button>
         <Button onClick={props.onClick} name={props.button4}>{props.button4}</Button>
+        <Button onClick={props.onClick} name={props.button5}>{props.button5}</Button>
       </ButtonGroup>
     </Box>
   );

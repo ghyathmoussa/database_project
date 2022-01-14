@@ -16,13 +16,14 @@ DeleteCustomerForm,
 ShowTaxis,
 ShowTaxiDrivers,
 ShowStations,
-ShowCustomer} from "./components/Forms";
+ShowCustomer,
+Reservation} from "./components/Forms";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Form, Row, Button, Col} from "react-bootstrap";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import httpRequest from '../src/httpRequest' // to get api response
+// import httpRequest from '../src/httpRequest' // to get api response
 
 const Main = () => {
 
@@ -30,6 +31,7 @@ const Main = () => {
   const [form, setForm] = useState();
   function selectOperation(e) { 
     setOperation(e.target.name)
+    console.log(e.target.name)
   }
 
 
@@ -48,6 +50,7 @@ const Main = () => {
         button2 = "Update"
         button3 = "Delete"
         button4 = "Show Data"
+        button5 = "Take"
       />
       {operation && ( 
       <VariantButtonGroup 
@@ -79,6 +82,8 @@ const Main = () => {
       {operation == 'Show Data' && form == 'Station' && <ShowStations />}
       {operation == 'Show Data' && form == 'Customer' && <ShowCustomer />}
       
+      {/* Reservation operation */}
+      {operation == 'Take' && <Reservation />}
       </div>
     </div>
   );
