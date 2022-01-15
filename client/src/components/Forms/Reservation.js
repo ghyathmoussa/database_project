@@ -6,7 +6,7 @@ import axios from 'axios'
 const Reservation = () => {
     const [data, setData] = useState({
         plate: '',
-        snumber: 0
+        cid: 0
     })
     const [taxis, setTaxis] = useState([])
     const [stations, setStations] = useState([])
@@ -37,11 +37,11 @@ const Reservation = () => {
                 setStations(res.data.rows)
             }).catch(err => console.log(err))
         // check if the plate in taxi plates
-        if(taxis.includes(data.plate)){
+        if (taxis.includes(data.plate)) {
             setAlert(true)
             return;
         }
-        if(stations.includes(data.snumber)){
+        if (stations.includes(data.snumber)) {
             setAlert(true)
             return;
         }
@@ -58,7 +58,7 @@ const Reservation = () => {
             <Row className="mb-3">
                 <Form.Group as={Col}>
                     <Form.Label>Enter the plate of taxi</Form.Label>
-                    <Form.Control placeholder="Station Number" name='plate' onChange={(e) => setData({ ...data, plate: e.target.value })} />
+                    <Form.Control placeholder="Plate Number" name='plate' onChange={(e) => setData({ ...data, plate: e.target.value })} />
                     {alert && <Alert key={data.id} variant='danger'>
                         please enter a correct plate
                     </Alert>}
@@ -67,14 +67,17 @@ const Reservation = () => {
             <Row className="mb-3">
                 <Form.Group as={Col}>
                     <Form.Label>Enter the Station Number </Form.Label>
-                    <Form.Control placeholder="Station Number" name='snumber' onChange={(e) => setData({ ...data, snumber: parseInt(e.target.value) })} />
+                    <Form.Control placeholder="Customer ID" name='cid' onChange={(e) => setData({ ...data, cid: parseInt(e.target.value) })} />
                     {alert && <Alert key={data.id} variant='danger'>
-                        please enter a correct station number
+                        please enter a correct customer ID
                     </Alert>}
                 </Form.Group>
             </Row>
+            <Button variant="primary" type="submit">
+                Submit
+            </Button>
         </Form>
     );
 }
 
-export {Reservation}; 
+export { Reservation }; 

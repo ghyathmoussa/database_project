@@ -17,7 +17,7 @@ ShowTaxis,
 ShowTaxiDrivers,
 ShowStations,
 ShowCustomer,
-Reservation} from "./components/Forms";
+TakesButton} from "./components/Forms";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Form, Row, Button, Col} from "react-bootstrap";
@@ -83,7 +83,7 @@ const Main = () => {
       {operation == 'Show Data' && form == 'Customer' && <ShowCustomer />}
       
       {/* Reservation operation */}
-      {operation == 'Take' && <Reservation />}
+      {operation == 'Take' && <TakesButton />}
       </div>
     </div>
   );
