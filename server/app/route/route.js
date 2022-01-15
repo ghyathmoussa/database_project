@@ -5,6 +5,7 @@ const TaxiC = require('../controllers/taxiController')
 const customerC = require('../controllers/customerController')
 const stationC = require('../controllers/stationController')
 const taxiDriverC = require('../controllers/taxiDreiversC')
+const reservationC = require('../controllers/reservationC')
 
 /* ******** routes of taxi ************* */
 router.post('/api/taxi/create',TaxiC.create)
@@ -41,5 +42,7 @@ router.delete('/api/taxi-driver/delete',taxiDriverC.delete)
 router.post('/api/model/show',stationC.showModels)
 router.get('/api/model/showDrivers',stationC.countDrivers)
 router.post('/api/model/showDriversOneStation',stationC.countDriversOneStation)
-
+/* reservations api's */
+router.post('/api/reservation',reservationC.create)
+router.get('/api/reservation-show',reservationC.show)
 module.exports = router;
